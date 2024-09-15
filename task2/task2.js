@@ -53,7 +53,7 @@ function executeProcess(dirPath, email) {
   return finalHash
 }
 
-const dirPath = './task2'
+const dirPath = './files'
 const email = 'mdsiaofficial@gmail.com'
 const finalHash = executeProcess(dirPath, email)
 console.log(finalHash)

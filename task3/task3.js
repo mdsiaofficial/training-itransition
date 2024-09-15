@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-
+const Table = require('cli-table3');
 class KeyGen {
   static genKey() {
     return crypto.randomBytes(32).toString('hex');
@@ -41,17 +41,21 @@ class Help {
   }
 
   displayTable() {
-    const n = this.moves.length;
-    const table = [];
+    const numberOfMoves = this.moves.length;
+    // const table = [];
+    // table.push([''].concat(this.moves));
 
-    table.push([''].concat(this.moves));
+    const table = new Table({
+      head: [`v PC\User >`].concat(this.moves),
+      colWidths: Array(numberOfMoves+1).fill(15)
+    })
 
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < numberOfMoves; i++) {
       const row = [this.moves[i]];
-      for (let j = 0; j < n; j++) {
+      for (let j = 0; j < numberOfMoves; j++) {
         if (i === j) {
           row.push('Draw');
-        } else if ((j - i + n) % n <= Math.floor(n / 2)) {
+        } else if ((j - i + numberOfMoves) % numberOfMoves <= Math.floor(numberOfMoves / 2)) {
           row.push('Win');
         } else {
           row.push('Lose');
@@ -60,9 +64,10 @@ class Help {
       table.push(row);
     }
 
-    table.forEach(row => {
-      console.log(row.join('\t'));
-    });
+    // table.forEach(row => {
+    //   console.log(row.join('\t'));
+    // });
+    console.log(table.toString());
   }
 }
 
